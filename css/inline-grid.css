@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+
+/* required styling for inline-block grid */ 
+
+.movie-result-container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.js-movie-search-results {
+	display: inline-block;
+	width: 25%;
+	padding: 10px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.movie-source-container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.js-movie-source-results {
+	display: inline-block;
+	width: 25%;
+	padding: 10px;
+	vertical-align: top;
+	text-align: center;
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile defaults */
+.lrg-col-3, .med-col-4, .col-6, .sm-col-12, .lrg-col-12, .med-col-12 {
+  width: 100%;
+}
+
+.lrg-col-3, .med-col-4, .col-6, .sm-col-12, .lrg-col-12, .med-col-12 {
+  display: inline-block;
+}
+
+
+/* Non-mobile, grid */
+@media only screen and (min-width: 350px) {
+
+  /* 12 columns, 12/12 in % - 1 */
+  .sm-col-12 {
+    width: 100%;
+  }
+  .movie-review {
+    display: block;
+    margin: 5px auto;  
+  }
+}
+/* Non-mobile, grid */
+@media only screen and (min-width: 760px) {
+
+  /* 4 columns, 4/12 in % - 1/3 */
+  .med-col-4 {
+    width: 33.33%;
+  }
+  .med-col-2 {
+    width: 50%;
+  }
+  .movie-review {
+    display: block;
+    max-width: 80%;
+    margin: 30px auto;  
+  }
+}
+
+/* Non-mobile, grid */
+@media only screen and (min-width: 1100px) {
+  /* 3 columns, 3/12 in % - 1/4 */
+  .lrg-col-3 {
+    width: 25%;
+  }
+  .lrg-col-4 {
+    width: 33.33%;
+  }
+  .movie-review {
+    display: block;
+    max-width: 60%;
+    margin: 30px auto;  
+  }
+}
+/* END MEDIA QUERIES */
+
+/* end required styling for inline-block grid */ 
+/* use min max combined : @media screen and (min-width:100px) and (max-width:200px) */
