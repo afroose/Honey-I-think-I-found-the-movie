@@ -120,12 +120,12 @@ const displayGUIDEBOXMovieInfo = (data) => {
     if (data.id) {
         reviewElement += 
            `<div class='grid grid-with-gutter'>
-                <div class='grid-cell grid-small-12 grid-medium-4 grid-large-3'>
+                <div class='grid-cell grid-small-12 grid-medium-5 grid-large-3'>
                     <div id='moviePoster' class='grid-content-image' style='text-align:center'>
                         <img src="${data.poster_240x342}" class="js-movie-thumbnail" />
                     </div>
                 </div>
-                <div class='grid-cell grid-small-12 grid-medium-8 grid-large-9'>
+                <div class='grid-cell grid-small-12 grid-medium-7 grid-large-9'>
                     <div class='grid-content-text'>
                         <h1>${data.title}</h1>
                         <p>${data.overview}</p>
