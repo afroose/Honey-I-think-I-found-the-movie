@@ -38,36 +38,40 @@ const getTitleDataFromAPI = (searchTerm, callback) => {
 }
 
 const displayGUIDEBOXTITLESearchData = (data) => {
+    let formattedTextElement = '';
     let resultElement = '';
     if (data.total_results > 0) {
         data.results.forEach( (item) => {
-            //resultElement += '<div class="js-search-thumbnail">' + item.snippet.thumbnails.medium.url + '</div>';
-            resultElement += 
-/*            `
-	        <div class="js-movie-search-results lrg-col-3 med-col-4 sm-col-12">
-                <div class="js-movie-search-thumbnail">
-                <a href="#" class="js-movie-thumbnail"><img src="${item.poster_120x171}" class="js-movie-thumbnail" /></a>
-                <div class="js-movie-search-title">${item.title}</div>
-                <div><button class="js-select-movie" data-id="${item.id}">Select movie</button></li></div>
-            </div>`;*/
-
-
-	        `<div class="js-movie-search-results lrg-col-3 med-col-4 sm-col-12">
-                <div class="js-movie-search-thumbnail">
-		            <img src="${item.poster_240x342}" class="js-movie-thumbnail" data-id="${item.id}"/>
+            resultElement += `<div class='grid-cell grid-small-6 grid-medium-3 grid-large-2'><img src="${item.poster_120x171}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
+        });
+        formattedTextElement += `    
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <h1>We found some matches</h1>
+                        <p>Select the correct movie if it appears here, and we will see if it is available on any platform.</p>
+                        <p>Or you can try another search.</p>
+                    </div>
                 </div>
-	        </div>`;
-
-
-            });
+            </div>
+            <div class="grid grid-with-gutter">${resultElement}</div>`
         }
-        else {
-            resultElement += `<p>No result</p>`
-            //alert("no result");
+    else {
+        formattedTextElement += `
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>We did not find a match for the movie you entered. Sorry.</p>
+                        <p>But do not give up, you can try looking for another one.</p>
+                    </div>
+                </div>
+            </div>`
+        //alert("no result");
         };
-    $('.movie-result-container').html(`${resultElement}`);
+    $('.movie-result-container').html(`${formattedTextElement}`);
     //alert("toggle");
     $('.movie-result-container').toggle();
+    $('.description').toggle();
 }
 
 $('body').on('click','.js-movie-thumbnail', (event) => {
@@ -85,9 +89,9 @@ $('body').on('click','.js-movie-thumbnail', (event) => {
 // *** Wrapper function - retrieves all movie data ***************************
 
 const getMovieDataFromAPI = (movieID) => {    
-    getMovieInfoFromAPI(movieID, displayGUIDEBOXMovieInfo);
-    getMovieInfoFromAPI(movieID, displayGUIDEBOXSourceData);
-    getMovieTrailerFromAPI(movieID, displayGUIDEBOXTrailerData);
+     getMovieInfoFromAPI(movieID, displayGUIDEBOXMovieInfo);
+     getMovieInfoFromAPI(movieID, displayGUIDEBOXSourceData);
+     //getMovieTrailerFromAPI(movieID, displayGUIDEBOXTrailerData);
 }
 
 const getMovieInfoFromAPI = (movieID, callback) => {
@@ -106,7 +110,7 @@ const getMovieTrailerFromAPI = (movieID, callback) => {
     let trailerURL = `${GUIDEBOX_MOVIE_BASE_URL}${movieID}/videos?limit=1&sources=guidebox`
     //alert(trailerURL);
     $.getJSON(trailerURL, query, callback);
-    console.log(callback);
+    //console.log("trailer");
 }
 
 // *** Block for movie information portion  - based on movie id **************
@@ -115,9 +119,19 @@ const displayGUIDEBOXMovieInfo = (data) => {
     let reviewElement = '';
     if (data.id) {
         reviewElement += 
-           `<img src="${data.poster_240x342}" class="js-movie-thumbnail left" />
-            <span class="js-movie-review-title"><h1>${data.title}</h1></span>
-            <p>${data.overview}</p>`;
+           `<div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-4 grid-large-3'>
+                    <div id='moviePoster' class='grid-content-image' style='text-align:center'>
+                        <img src="${data.poster_240x342}" class="js-movie-thumbnail" />
+                    </div>
+                </div>
+                <div class='grid-cell grid-small-12 grid-medium-8 grid-large-9'>
+                    <div class='grid-content-text'>
+                        <h1>${data.title}</h1>
+                        <p>${data.overview}</p>
+                    </div>
+                </div>
+            </div>`;
     }
     
 //<div><button class="js-movie-sources" data-id="${data.id}">Find Sources</button></li></div>
@@ -126,7 +140,7 @@ const displayGUIDEBOXMovieInfo = (data) => {
         reviewElement += `<p>No result</p>`;
     }
 
-    $('.movie-review').html(`${reviewElement}`);
+    $('.movie-review').prepend(`${reviewElement}`);
     $('.movie-review-container').toggle();
 }
 
@@ -146,17 +160,22 @@ const displayGUIDEBOXTrailerData = (data) => {
     let trailerElement = '';
     let videoElement = '';
     if (data.results) {
-        data.results.forEach( (item) => {
-            item.free_web_sources.forEach( (vidItem) => {
-                videoElement += `${vidItem.embed}`;
-            });
-            trailerElement += `<a data-fancybox class="js-activate-thumbnail" href="${videoElement}"><button >Watch the trailer</button></a>`;
-        });
+        videoElement = data.results[0];
+        trailerElement += `
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-4 grid-large-3'>
+                    <div id='movieButton' class='grid-content-image' style='text-align:center'>
+                        <a data-fancybox class="js-activate-thumbnail" href="http://api-widget.guidebox.com/embed.php?video=${videoElement}"><button class='icon'><i class="fa fa-play-circle fa-4x"></i></button></a>
+                    </div>
+                </div>
+                <div class='grid-cell grid-small-12 grid-medium-8 grid-large-9'>
+                </div>
+            </div>`; 
     }
     else {
         trailerElement += '<p>No result</p>'
     }
-  $('.movie-trailer-button').html(`${trailerElement}`);
+  $('#movie-trailer-button').html(`${trailerElement}`);
 }
 
 // *** End movie trailer Block ******
@@ -206,11 +225,12 @@ var imageStored = [
 ]
 
 const displayGUIDEBOXSourceData = (data) => {
+    let formattedTextElement = '';
     let resultElement = '';
     let sourceLogo = '';
     if (data.purchase_web_sources) {
         data.purchase_web_sources.forEach( (item) => {            
-            console.log("item cheked is: ",item.source)
+            console.log("item checked is: ",item.source)
             for (var i=0; i<imageStored.length; i++) {
                 var logo = imageStored[i];
                 if (item.source === logo.source) {
@@ -220,22 +240,40 @@ const displayGUIDEBOXSourceData = (data) => {
             }
             let priceElement = '';
             item.formats.forEach( (itemFormat) => {
-                priceElement += `<tr><td align="right">${itemFormat.type} ${itemFormat.format}: </td><td align=":"right">\$${itemFormat.price}</td></tr>`;
+                priceElement += `<a>${itemFormat.type} ${itemFormat.format}: \$${itemFormat.price}</a>`;
             });
 
             resultElement += `
-            <div class="js-movie-source-results lrg-col-4 med-col-2 sm-col-12">
-                <div class="js-movie-source-thumbnail">		            
-                    <img src="images/${sourceLogo}" class="js-source-thumbnail" />
-                    <table>${priceElement}</table>
+            <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+                <div class='platforms'>            
+                <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
+                ${priceElement}
                 </div>
             </div>`;
         });
+        formattedTextElement += `    
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>The movie is available on the following platforms:.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-with-gutter">${resultElement}</div>`
     }
     else {
-        resultElement += '<p>No result</p>'
-    }
-    $('.movie-source-container').html(`<div style="padding: 30px; margin-right: 30px;"><h1 style="color: blue">The movie is available for purchase from the following services:</h1></div>${resultElement}`);
+        formattedTextElement += `
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>We did not find a match for the movie you entered. Sorry.</p>
+                        <p>But do not give up, you can try looking for another one.</p>
+                    </div>
+                </div>
+            </div>`
+    };
+
+    $('.movie-source-container').html(`${formattedTextElement}`);
     $('.movie-source-container').toggle();
 }
 

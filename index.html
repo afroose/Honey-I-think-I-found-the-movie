@@ -1,4 +1,4 @@
-S<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,24 +14,36 @@ S<!DOCTYPE html>
 
   <!-- Normalize.css, a cross-browser reset file -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/inline-grid.css" />
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/inline-grid.css">
+  <!--<link rel="stylesheet" href="css/inline-grid-old.css" />
+  <link rel="stylesheet" href="css/main-old.css">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
+  
+  <style type="text/css">
+    html { 
+      background: url(images/large-background.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }  
+  </style>
 </head>
 <body> 
 
-  <header>
-    <div class="search-container lrg-col-12 med-col-12 sm-col-12">
+  <header class="box">
+    <div class="search-container">
       <form action="#" class="js-search-form">
-        <label for="query"><span class="search-title">MyMovie Search</span></label>
-        <input id="searchbar" type="search" class="js-query" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
-        <button type="submit" class="seach-form-button">Search</button>
+        <input id="searchbar" type="search" class="js-query" placeholder="Search" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+        <button type="submit" class="seach-form-button icon"><i class="fa fa-search"></i></button>
       </form>
     </div> 
   </header>
@@ -41,13 +53,49 @@ S<!DOCTYPE html>
     <p class="warning-text">This page requires JavaScript to run. Please make sure you have <a href="http://enable-javascript.com">enabled JavaScript</a> to play. If JavaScript is on and you still see this message, please <a href="mailto:arnaud.roose@gmail.com?subject=MyMovieSearch - javascript is not loading properly." target="_blank">contact Arnaud</a>.</p>
   </div>-->
 
+  <section class="description">
+    <div class='grid grid-with-gutter'>
+      <div class='grid-cell grid-small-12 grid-medium-6 grid-large-7'>
+          <div class='grid-content-text'>
+            <h1>Welcome to the Movie Search</h1>
+            <p>Tired of the long searches across all apps and platforms for the movie of the night?</p>
+            <p>Simply enter the movie title you are thinking of in the search box.</p>
+            <p>The app will return all the matching titles we can find so you can select the correct one.</p>
+          </div>
+      </div>
+      <div class='grid-cell grid-small-12 grid-medium-6 grid-large-5'>
+          <div class='grid-content-image'>
+            <img src="images/abyss-poster.jpg" style="margin: 15px;">
+            <img src="images/BenHur.jpg" style="margin: 15px;">
+          </div>
+      </div>
+    </div>
+    
+    <div class='grid grid-with-gutter'>
+      <div class='grid-cell grid-small-12 grid-medium-6 grid-large-5'>
+          <div class='grid-content-image'>
+            <img src="images/Netflix.jpg" style="Width: 120px" border="none" style="margin: 5px;">
+            <img src="images/Hulu.jpg" style="Width: 120px" border="none" style="margin: 5px;"><br/>
+            <img src="images/AmazonPrime.jpg" style="Width: 120px" border="none" style="margin: 5px;">
+            <img src="images/GooglePlay.jpg" style="Width: 120px" border="none" style="margin: 5px;">
+          </div>
+      </div>
+      <div class='grid-cell grid-small-12 grid-medium-6 grid-large-7'>
+          <div class='grid-content-text'>
+            <h1>And which platform?</h1>
+            <p>Next, select the movie of your choice, and we will let you know the platforms it can be streamed from, the format (SD or HD), and whether it can be viewed for free, rented or purchased.</p>
+          </div>
+      </div>
+    </div>
+  </section>
+
   <section class="movie-result-container">
   </section>
 
   <section class="movie-review-container" style="display: none;">
     <div class="movie-review">
     </div>
-    <div class="movie-trailer-button">
+    <div id="movie-trailer-button">
     </div>
   </section>
 
