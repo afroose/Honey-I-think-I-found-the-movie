@@ -139,6 +139,32 @@ header {
     padding: 0 2px;
     white-space: nowrap;
 }
+.trailer {
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background-color: black;
+    border-radius: 5px;
+    border-style: none;
+    text-decoration: none;
+    border: 2px solid silver;
+    color: #fdfdfd;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    width: 136px;
+    margin: 5px auto 10px auto;
+    padding: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.js-activate-thumbnail{
+  text-decoration: none;
+}
+.details{
+  font-size: 14px;
+}
+
 @media only screen and (min-width: 315px) {  
   .box{
     margin-top: 20px;
@@ -206,4 +232,15 @@ header {
     margin-left: 100px;
     padding: 50px
   }
+}
+
+/*Video css*/
+.fancybox-slide--video .fancybox-content {
+	width  : 640px;
+	height : 360px;
+}
+.fancybox-slide--iframe .fancybox-content {
+	width  : 640px;
+	height : 360px;
+	margin: 0;
 }

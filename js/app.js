@@ -38,11 +38,18 @@ const getTitleDataFromAPI = (searchTerm, callback) => {
 }
 
 const displayGUIDEBOXTITLESearchData = (data) => {
+    
+    // Clean containers if previous entry
+    $( '.movie-result-container' ).empty();
+    $( '.movie-review' ).empty();
+    $( '.movie--trailer-button' ).empty();
+    $( '.movie-source-container' ).empty();
+
     let formattedTextElement = '';
     let resultElement = '';
     if (data.total_results > 0) {
         data.results.forEach( (item) => {
-            resultElement += `<div class='grid-cell grid-small-6 grid-medium-3 grid-large-2'><img src="${item.poster_120x171}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
+            resultElement += `<div class='grid-cell grid-small-6 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
         });
         formattedTextElement += `    
             <div class='grid grid-with-gutter'>
@@ -70,8 +77,12 @@ const displayGUIDEBOXTITLESearchData = (data) => {
         };
     $('.movie-result-container').html(`${formattedTextElement}`);
     //alert("toggle");
-    $('.movie-result-container').toggle();
-    $('.description').toggle();
+    // Toggle containers
+    if ($( '.movie-result-container' ).is( ":hidden" )) {$('.movie-result-container').toggle();};
+    if ($( '.movie-review-container' ).is( ":visible" )) {$('.movie-review-container').toggle();};
+    if ($( '.movie-source-container' ).is( ":visible" )) {$('.movie-source-container').toggle();};
+    if ($( '.description' ).is( ":visible" )) {$('.description').toggle();};
+    //$('.box').toggle();
 }
 
 $('body').on('click','.js-movie-thumbnail', (event) => {
@@ -123,12 +134,17 @@ const displayGUIDEBOXMovieInfo = (data) => {
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-5'>
                     <div id='moviePoster' class='grid-content-image' style='text-align:center'>
                         <img src="${data.poster_240x342}" class="js-movie-thumbnail" />
+                        <div id='movieButton' class='grid-content-image' style='text-align:center'>
+                            <a data-fancybox class="js-activate-thumbnail" href="${data.trailers.web[0].embed}"><button class='trailer'><i class="fa fa-play-circle"></i> Watch the Trailer</button></a>
+                        </div>
                     </div>
                 </div>
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-7'>
                     <div class='grid-content-text'>
                         <h1>${data.title}</h1>
                         <p>${data.overview}</p>
+                        <p class="details">Director: ${data.directors[0].name}</p>
+                        <p class="details">Cast: ${data.cast[0].name}, ${data.cast[1].name}, ${data.cast[2].name}</p>
                     </div>
                 </div>
             </div>`;
@@ -226,8 +242,61 @@ var imageStored = [
 
 const displayGUIDEBOXSourceData = (data) => {
     let formattedTextElement = '';
-    let resultElement = '';
+
+    let resultPurchaseElement = '';
+    let purchaseAvailable = 0;
+
+    let resultRentElement = '';
+    let rentAvailable =0;
+
+    let resultSubscriptionElement = '';
+    let SubscriptionAvailable =0;
+
     let sourceLogo = '';
+
+    // Subscription Options
+
+    // if (data.subscription_web_sources) {           
+    //     console.log("item checked is: ",data.subscription_web_sources.source)
+    //     for (var i=0; i<imageStored.length; i++) {
+    //         var logo = imageStored[i];
+    //         if (data.subscription_web_sources.source === logo.source) {
+    //             sourceLogo = logo.image
+    //             console.log(sourceLogo);
+    //         };
+    //     }
+    //     let subscriptionElement = '';
+    //     let SubscriptionCounter = 0;
+    //     if (data.subscription_web_sources.source != null && data.subscription_web_sources.link != null ) {
+    //         subscriptionElement += `<a href="${data.subscription_web_sources.link}" target="_blank">Watch Now</a>`;
+    //         SubscriptionCounter ++;
+    //         SubscriptionAvailable ++;
+    //     };
+
+    //     if (SubscriptionCounter > 0){
+    //         resultSubscriptionElement += `
+    //         <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+    //             <div class='platforms'>            
+    //             <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
+    //             ${subscriptionElement}
+    //             </div>
+    //         </div>`;
+    //     }
+    //     if (SubscriptionAvailable > 0) {
+    //         formattedTextElement += `    
+    //         <div class='grid grid-with-gutter'>
+    //             <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+    //                 <div class='grid-content-text'>
+    //                     <p>The movie is available for streaming from the following platforms, if you have a valid subscription:</p>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         <div class="grid grid-with-gutter">${resultSubscriptionElement}</div>`
+    //     }
+    // }
+
+    // Rental / Purchase Options
+
     if (data.purchase_web_sources) {
         data.purchase_web_sources.forEach( (item) => {            
             console.log("item checked is: ",item.source)
@@ -239,28 +308,68 @@ const displayGUIDEBOXSourceData = (data) => {
                 };
             }
             let priceElement = '';
+            let priceCounter = 0;
             item.formats.forEach( (itemFormat) => {
-                priceElement += `<a>${itemFormat.type} ${itemFormat.format}: \$${itemFormat.price}</a>`;
+                if (itemFormat.price != null && itemFormat.type === "purchase" ) {
+                    priceElement += `<a href="${item.link}" target="_blank">${itemFormat.type} ${itemFormat.format}: \$${itemFormat.price}</a>`;
+                    priceCounter ++;
+                    purchaseAvailable ++;
+                }
+            });
+            let rentElement = '';
+            let rentCounter = 0;
+            item.formats.forEach( (itemFormat) => {
+                if (itemFormat.price != null && itemFormat.type === "rent" ) {
+                    rentElement += `<a href="${item.link}" target="_blank">${itemFormat.type} ${itemFormat.format}: \$${itemFormat.price}</a>`;
+                    rentCounter ++;
+                    rentAvailable ++;
+                }
             });
 
-            resultElement += `
-            <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
-                <div class='platforms'>            
-                <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
-                ${priceElement}
-                </div>
-            </div>`;
+            if (priceCounter > 0){
+                resultPurchaseElement += `
+                <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+                    <div class='platforms'>            
+                    <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
+                    ${priceElement}
+                    </div>
+                </div>`;
+            }
+
+            if (rentCounter > 0){
+                resultRentElement += `
+                <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+                    <div class='platforms'>            
+                    <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
+                    ${rentElement}
+                    </div>
+                </div>`;
+            }
         });
-        formattedTextElement += `    
+        if (purchaseAvailable > 0) {
+            formattedTextElement += `    
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
                     <div class='grid-content-text'>
-                        <p>The movie is available on the following platforms:.</p>
+                        <p>The movie is available for rent from the following platforms:</p>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-with-gutter">${resultElement}</div>`
+            <div class="grid grid-with-gutter">${resultRentElement}</div>`
+        }
+        if (rentAvailable > 0) {
+            formattedTextElement += `    
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>The movie is available for purchase from the following platforms:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-with-gutter">${resultPurchaseElement}</div>`
+        }
     }
+    
     else {
         formattedTextElement += `
             <div class='grid grid-with-gutter'>

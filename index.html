@@ -13,16 +13,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Normalize.css, a cross-browser reset file -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/inline-grid.css">
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/inline-grid.css" />
   <!--<link rel="stylesheet" href="css/inline-grid-old.css" />
   <link rel="stylesheet" href="css/main-old.css">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
@@ -39,19 +39,22 @@
 </head>
 <body> 
 
-  <header class="box">
+<header>
+</header>
+
+<main>         
+  <!--<div class="nojs-warning">
+    <p class="warning-text">This page requires JavaScript to run. Please make sure you have <a href="http://enable-javascript.com">enabled JavaScript</a> to play. If JavaScript is on and you still see this message, please <a href="mailto:arnaud.roose@gmail.com?subject=MyMovieSearch - javascript is not loading properly." target="_blank">contact Arnaud</a>.</p>
+  </div>-->
+
+  <section class="box">
     <div class="search-container">
       <form action="#" class="js-search-form">
         <input id="searchbar" type="search" class="js-query" placeholder="Search" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
         <button type="submit" class="seach-form-button icon"><i class="fa fa-search"></i></button>
       </form>
     </div> 
-  </header>
-
-<main>         
-  <!--<div class="nojs-warning">
-    <p class="warning-text">This page requires JavaScript to run. Please make sure you have <a href="http://enable-javascript.com">enabled JavaScript</a> to play. If JavaScript is on and you still see this message, please <a href="mailto:arnaud.roose@gmail.com?subject=MyMovieSearch - javascript is not loading properly." target="_blank">contact Arnaud</a>.</p>
-  </div>-->
+  </section>
 
   <section class="description">
     <div class='grid grid-with-gutter'>
@@ -103,27 +106,28 @@
   </section>
 
 </main>
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-   <!-- Grab local copy of jQuery for use in the failsafe script -->
-   <!--<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js">\x3C/script>')</script>-->
-  <script src="js/app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
-  
-  <script type="text/javascript">
-	$(document).ready(function() {
-    $("[data-fancybox]").fancybox({
-		// Options will go here
-      iframe : {
-		    css : {
-			    width : '600px'
-		    }
-	    }
-	  });
-	});
-  </script>
+
+<script
+src="https://code.jquery.com/jquery-3.1.1.min.js"
+integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+crossorigin="anonymous"></script>
+  <!-- Grab local copy of jQuery for use in the failsafe script -->
+  <!--<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js">\x3C/script>')</script>-->
+<script src="js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("[data-fancybox]").fancybox({
+  // Options will go here
+    iframe : {
+      css : {
+        width : '600px'
+      }
+    }
+  });
+});
+</script>
 
 </body>
 </html>
