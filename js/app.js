@@ -134,9 +134,7 @@ const displayGUIDEBOXMovieInfo = (data) => {
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-5'>
                     <div id='moviePoster' class='grid-content-image' style='text-align:center'>
                         <img src="${data.poster_240x342}" class="js-movie-thumbnail" />
-                        <div id='movieButton' class='grid-content-image' style='text-align:center'>
-                            <a data-fancybox class="js-activate-thumbnail" href="${data.trailers.web[0].embed}"><button class='trailer'><i class="fa fa-play-circle"></i> Watch the Trailer</button></a>
-                        </div>
+
                     </div>
                 </div>
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-7'>
@@ -149,6 +147,10 @@ const displayGUIDEBOXMovieInfo = (data) => {
                 </div>
             </div>`;
     }
+
+                        // <div id='movieButton' class='grid-content-image' style='text-align:center'>
+                        //     <a data-fancybox class="js-activate-thumbnail" href="${data.trailers.web[0].embed}"><button class='trailer'><i class="fa fa-play-circle"></i> Watch the Trailer</button></a>
+                        // </div>                            
     
 //<div><button class="js-movie-sources" data-id="${data.id}">Find Sources</button></li></div>
 
