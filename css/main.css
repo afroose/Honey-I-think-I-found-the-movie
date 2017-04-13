@@ -184,6 +184,9 @@ header {
     margin-top: 20px;
     padding: 10px;
   }
+  .movie-result-container .js-movie-thumbnail {
+    width: 80%;
+  }
 }
 @media only screen and (min-width: 640px) {  
   .box{
