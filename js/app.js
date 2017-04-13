@@ -232,7 +232,7 @@ var imageStored = [
     },
     {
         source: "paramount_movies",
-        image: "itunes.jpg"
+        image: "paramount.jpg"
     },
     {
         source: "verizon_on_demand",
