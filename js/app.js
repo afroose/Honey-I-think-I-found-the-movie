@@ -49,7 +49,7 @@ const displayGUIDEBOXTITLESearchData = (data) => {
     let resultElement = '';
     if (data.total_results > 0) {
         data.results.forEach( (item) => {
-            resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
+            resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_240x342}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
         });
         formattedTextElement += `    
             <div class='grid grid-with-gutter'>
