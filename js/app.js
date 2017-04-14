@@ -49,13 +49,13 @@ const displayGUIDEBOXTITLESearchData = (data) => {
     let resultElement = '';
     if (data.total_results > 0) {
         data.results.forEach( (item) => {
-            resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
+            resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" alt="Movie Poster: ${item.title} (${item.release_year})" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
         });
         formattedTextElement += `    
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
                     <div class='grid-content-text'>
-                        <h1>We found some matches</h1>
+                        <h2>We found some matches</h2>
                         <p>Select the correct movie if it appears here, and we will see if it is available on any platform.</p>
                         <p>Or you can try another search.</p>
                     </div>
@@ -133,13 +133,13 @@ const displayGUIDEBOXMovieInfo = (data) => {
            `<div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-5'>
                     <div id='moviePoster' class='grid-content-image' style='text-align:center'>
-                        <img src="${data.poster_240x342}" class="js-movie-thumbnail" />
+                        <img src="${data.poster_240x342}" class="js-movie-thumbnail"  alt="Movie Poster: ${data.title} (${data.release_year})""/>
 
                     </div>
                 </div>
                 <div class='grid-cell grid-small-12 grid-medium-6 grid-large-7'>
                     <div class='grid-content-text'>
-                        <h1>${data.title}</h1>
+                        <h3>${data.title}</h3>
                         <p>${data.overview}</p>
                         <p class="details">Director: ${data.directors[0].name}</p>
                         <p class="details">Cast: ${data.cast[0].name}, ${data.cast[1].name}, ${data.cast[2].name}</p>
@@ -332,7 +332,7 @@ const displayGUIDEBOXSourceData = (data) => {
                 resultPurchaseElement += `
                 <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
                     <div class='platforms'>            
-                    <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
+                    <span><img src="images/${sourceLogo}" alt="${item.sourceo}" class="js-source-thumbnail" /></span>
                     ${priceElement}
                     </div>
                 </div>`;

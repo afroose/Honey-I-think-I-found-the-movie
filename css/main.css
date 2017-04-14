@@ -211,6 +211,9 @@ header {
     margin-left: 50px;
     padding: 20px;
   }
+  .movie-result-container .js-movie-thumbnail {
+    width: 120px;
+  }
 }
 @media only screen and (min-width: 960px) { 
   .box{
@@ -227,13 +230,16 @@ header {
     margin-top: 100px;
     margin-right: 100px;
     margin-left: 100px;
-    padding: 50px
+    padding: 50px;
   }
   .movie-result-container, .movie-review-container, .movie-source-container{
     margin-top: 100px;
     margin-right: 100px;
     margin-left: 100px;
-    padding: 50px
+    padding: 50px;
+  }
+  .movie-result-container .js-movie-thumbnail {
+    width: 150px;
   }
 }
 
