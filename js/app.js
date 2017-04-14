@@ -49,8 +49,16 @@ const displayGUIDEBOXTITLESearchData = (data) => {
     let resultElement = '';
     if (data.total_results > 0) {
         data.results.forEach( (item) => {
-            resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" alt="Movie Poster: ${item.title} (${item.release_year})" class="js-movie-thumbnail" data-id="${item.id}"/></div>`;
+            if (item.poster_120x171 !="http://static-api.guidebox.com/misc/default_movie_120x171.jpg") {resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" alt="Movie Poster: ${item.title} (${item.release_year})" class="js-movie-thumbnail" data-id="${item.id}"/><br/><span class='movieTitle'>${item.title}<span><br/><span class='movieTitle'>(${item.release_year})<span></div>`;}
         });
+
+        
+                    /*<div class='platforms'>            
+                    <span><img src="images/${sourceLogo}" alt="${item.sourceo}" class="js-source-thumbnail" /></span>
+                    ${priceElement}
+                    </div>*/
+
+
         formattedTextElement += `    
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
@@ -239,6 +247,22 @@ var imageStored = [
     {
         source: "verizon_on_demand",
         image: "itunes.jpg"
+    },
+    {
+        source: "hulu_plus",
+        image: "Hulu.jpg"
+    },
+    {
+        source: "amazon_prime",
+        image: "AmazonPrime.jpg"
+    },
+    {
+        source: "comicconhq_amazon_prime",
+        image: "AmazonPrime.jpg"
+    },
+    {
+        source: "netflix",
+        image: "Netflix.jpg"
     }
 ]
 
@@ -258,44 +282,39 @@ const displayGUIDEBOXSourceData = (data) => {
 
     // Subscription Options
 
-    // if (data.subscription_web_sources) {           
-    //     console.log("item checked is: ",data.subscription_web_sources.source)
-    //     for (var i=0; i<imageStored.length; i++) {
-    //         var logo = imageStored[i];
-    //         if (data.subscription_web_sources.source === logo.source) {
-    //             sourceLogo = logo.image
-    //             console.log(sourceLogo);
-    //         };
-    //     }
-    //     let subscriptionElement = '';
-    //     let SubscriptionCounter = 0;
-    //     if (data.subscription_web_sources.source != null && data.subscription_web_sources.link != null ) {
-    //         subscriptionElement += `<a href="${data.subscription_web_sources.link}" target="_blank">Watch Now</a>`;
-    //         SubscriptionCounter ++;
-    //         SubscriptionAvailable ++;
-    //     };
-
-    //     if (SubscriptionCounter > 0){
-    //         resultSubscriptionElement += `
-    //         <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
-    //             <div class='platforms'>            
-    //             <span><img src="images/${sourceLogo}" class="js-source-thumbnail" /></span>
-    //             ${subscriptionElement}
-    //             </div>
-    //         </div>`;
-    //     }
-    //     if (SubscriptionAvailable > 0) {
-    //         formattedTextElement += `    
-    //         <div class='grid grid-with-gutter'>
-    //             <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
-    //                 <div class='grid-content-text'>
-    //                     <p>The movie is available for streaming from the following platforms, if you have a valid subscription:</p>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //         <div class="grid grid-with-gutter">${resultSubscriptionElement}</div>`
-    //     }
-    // }
+    if (data.subscription_web_sources) {
+        data.subscription_web_sources.forEach( (item) => {            
+            console.log("item checked is: ",item.source)
+            for (var i=0; i<imageStored.length; i++) {
+                var logo = imageStored[i];
+                if (item.source === logo.source) {
+                    sourceLogo = logo.image
+                    console.log(sourceLogo);
+                };
+            }
+            if (item.link != null && item.source != null ) {
+                resultSubscriptionElement += `
+                <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+                    <div class='platforms'>            
+                    <span><img src="images/${sourceLogo}" alt="${item.source}" class="js-source-thumbnail" /></span>
+                    <a href="${item.link}" target="_blank">Watch Now</a>
+                    </div>
+                </div>`;
+            }
+            SubscriptionAvailable ++;
+        });
+        if (SubscriptionAvailable > 0) {
+            formattedTextElement += `    
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>The movie is available for streaming from the following platforms, if you are a subscriber:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-with-gutter">${resultSubscriptionElement}</div>`
+        }
+    }
 
     // Rental / Purchase Options
 
@@ -372,7 +391,7 @@ const displayGUIDEBOXSourceData = (data) => {
         }
     }
     
-    else {
+    if (!data.purchase_web_sources && !data.subscription_web_sources) { 
         formattedTextElement += `
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>

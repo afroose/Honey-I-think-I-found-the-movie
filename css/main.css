@@ -97,6 +97,9 @@ header {
     border: 3px solid darkgoldenrod;
     border-radius: 5px;
 }
+.movieTitle{
+  color: white;
+}
 .movie-result-container .js-movie-thumbnail {
     cursor: pointer;
 }
@@ -114,10 +117,6 @@ header {
   overflow: hidden;
   vertical-align: top;
   text-align: center;
-}
-.platforms ul{
-  display: block;
-  list-style-type: disc;
 }
 .platforms a {
     -webkit-transition: all 0.2s ease;
