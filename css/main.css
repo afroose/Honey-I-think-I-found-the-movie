@@ -9,6 +9,21 @@ html {
 }
 
 header {
+  top: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  text-align: center;
+  padding: 5px;
+}
+.appTitle{
+  background-color: white;
+  border-radius: 15px;
+  color: #969595;
+
+  font: 300 60px/1.0 'Just Another Hand', Helvetica, sans-serif;
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.1); 
+  margin: 5px 100px;
 }
  
 .box{
@@ -186,6 +201,11 @@ header {
   .movie-result-container .js-movie-thumbnail {
     width: 60%;
   }
+  .appTitle{
+    font: 100 20px/1.0 'Just Another Hand', Helvetica, sans-serif;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
+    margin: 5px 30px;
+  }
 }
 @media only screen and (min-width: 640px) {  
   .box{
@@ -212,6 +232,11 @@ header {
   }
   .movie-result-container .js-movie-thumbnail {
     width: 120px;
+  }
+  .appTitle{
+    font: 200 40px/1.0 'Just Another Hand', Helvetica, sans-serif;
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.1); 
+    margin: 5px 75px;
   }
 }
 @media only screen and (min-width: 960px) { 

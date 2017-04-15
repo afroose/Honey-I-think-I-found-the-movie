@@ -1,22 +1,3 @@
-// https://www.googleapis.com/youtube/v3/search?pageToken=CBkQAA&part=snippet&maxResults=25&order=relevance&q=site%3Ayoutube.com&topicId=%2Fm%2F02vx4&key={YOUR_API_KEY}
-// Event handlers
-
-/*$('body').on('click', '.js-activate-thumbnail',function (event) {
-    event.preventDefault(); // do not submit yet
-    // alert($(this).siblings('.overlay').attr('id'));
-    var idToOpen = '#' + $(this).data('id');
-    $(idToOpen).toggle();
-    // $(this).siblings('.overlay').hide();
-    // $(this).css('display', 'none'); 
-});
-$('body').on('click','.js-close-thumbnail',function (event) {
-    event.preventDefault(); // do not submit yet
-    //alert($(this).siblings('.overlay').attr('id'));
-    var idToClose = '#' + $(this).data('id');
-    $(idToClose).toggle();
-    // $(this).siblings('.overlay').hide();
-    // $(this).css('display', 'none'); 
-});*/
 
 // *** Block for movie ID search portion **************
 // *** Create the API url variable = endpoint ******
@@ -32,9 +13,7 @@ const getTitleDataFromAPI = (searchTerm, callback) => {
         api_key: '65fd44fa012e778f220d1e1c8f8dd0f2642fb87d'
         //maxResults: 6
     }
-    //console.log(query);
     $.getJSON(GUIDEBOX_SEARCH_BASE_URL, query, callback);
-    //console.log(callback);git add
 }
 
 const displayGUIDEBOXTITLESearchData = (data) => {
@@ -51,14 +30,6 @@ const displayGUIDEBOXTITLESearchData = (data) => {
         data.results.forEach( (item) => {
             if (item.poster_120x171 !="http://static-api.guidebox.com/misc/default_movie_120x171.jpg") {resultElement += `<div class='grid-cell grid-small-12 grid-medium-4 grid-large-3' style='text-align: center'><img src="${item.poster_120x171}" alt="Movie Poster: ${item.title} (${item.release_year})" class="js-movie-thumbnail" data-id="${item.id}"/><br/><span class='movieTitle'>${item.title}<span><br/><span class='movieTitle'>(${item.release_year})<span></div>`;}
         });
-
-        
-                    /*<div class='platforms'>            
-                    <span><img src="images/${sourceLogo}" alt="${item.sourceo}" class="js-source-thumbnail" /></span>
-                    ${priceElement}
-                    </div>*/
-
-
         formattedTextElement += `    
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
@@ -81,21 +52,17 @@ const displayGUIDEBOXTITLESearchData = (data) => {
                     </div>
                 </div>
             </div>`
-        //alert("no result");
         };
     $('.movie-result-container').html(`${formattedTextElement}`);
-    //alert("toggle");
     // Toggle containers
     if ($( '.movie-result-container' ).is( ":hidden" )) {$('.movie-result-container').toggle();};
     if ($( '.movie-review-container' ).is( ":visible" )) {$('.movie-review-container').toggle();};
     if ($( '.movie-source-container' ).is( ":visible" )) {$('.movie-source-container').toggle();};
     if ($( '.description' ).is( ":visible" )) {$('.description').toggle();};
-    //$('.box').toggle();
 }
 
 $('body').on('click','.js-movie-thumbnail', (event) => {
     event.preventDefault(); // do not submit yet
-    //alert($(this).siblings('.overlay').attr('id'));
     const idToPass = $(event.target).data('id');
     $('.movie-result-container').toggle();
     // call new function to retrieve movie information
@@ -110,16 +77,14 @@ $('body').on('click','.js-movie-thumbnail', (event) => {
 const getMovieDataFromAPI = (movieID) => {    
      getMovieInfoFromAPI(movieID, displayGUIDEBOXMovieInfo);
      getMovieInfoFromAPI(movieID, displayGUIDEBOXSourceData);
-     //getMovieTrailerFromAPI(movieID, displayGUIDEBOXTrailerData);
+     //getMovieTrailerFromAPI(movieID, displayGUIDEBOXTrailerData); // Movie trailer function, but the API does not return https, so not available for Chrome, works locally :(
 }
 
 const getMovieInfoFromAPI = (movieID, callback) => {
     const query = {
         api_key: '65fd44fa012e778f220d1e1c8f8dd0f2642fb87d'
-        //maxResults: 6
     }
     $.getJSON(GUIDEBOX_MOVIE_BASE_URL + movieID, query, callback);
-    // console.log(callback);
 }
 
 const getMovieTrailerFromAPI = (movieID, callback) => {
@@ -127,9 +92,7 @@ const getMovieTrailerFromAPI = (movieID, callback) => {
         api_key: '65fd44fa012e778f220d1e1c8f8dd0f2642fb87d'
     }
     let trailerURL = `${GUIDEBOX_MOVIE_BASE_URL}${movieID}/videos?limit=1&sources=guidebox`
-    //alert(trailerURL);
     $.getJSON(trailerURL, query, callback);
-    //console.log("trailer");
 }
 
 // *** Block for movie information portion  - based on movie id **************
@@ -156,12 +119,6 @@ const displayGUIDEBOXMovieInfo = (data) => {
             </div>`;
     }
 
-                        // <div id='movieButton' class='grid-content-image' style='text-align:center'>
-                        //     <a data-fancybox class="js-activate-thumbnail" href="${data.trailers.web[0].embed}"><button class='trailer'><i class="fa fa-play-circle"></i> Watch the Trailer</button></a>
-                        // </div>                            
-    
-//<div><button class="js-movie-sources" data-id="${data.id}">Find Sources</button></li></div>
-
     else {
         reviewElement += `<p>No result</p>`;
     }
@@ -173,7 +130,6 @@ const displayGUIDEBOXMovieInfo = (data) => {
 $('body').on('click','.js-movie-sources',function (event) {
     event.preventDefault(); // do not submit yet
     var idToPass = $(this).data('id');
-    // alert(idToPass);
     $('.movie-review-container').toggle();
     // call new function to retrieve movie information
     getSourceDataFromAPI(idToPass, displayGUIDEBOXSourceData);
@@ -211,7 +167,7 @@ const displayGUIDEBOXTrailerData = (data) => {
 
 // Store images for logos
 
-var imageStored = [
+var imageStored = [ // Object to store logos.
     {
         source: "itunes",
         image: "itunes.jpg"
@@ -258,16 +214,27 @@ var imageStored = [
     },
     {
         source: "comicconhq_amazon_prime",
-        image: "AmazonPrime.jpg"
+        image: "AmazonComicconHQ.jpg"
+    },
+    {
+        source: "sundancenowdocclub_amazon_prime",
+        image: "AmazonSundance.jpg"
     },
     {
         source: "netflix",
         image: "Netflix.jpg"
+    },
+    {
+        source: "crackle",
+        image: "Crackle.jpg"
     }
 ]
 
 const displayGUIDEBOXSourceData = (data) => {
     let formattedTextElement = '';
+
+    let resultFreeWebElement = '';
+    let freeWebAvailable = 0;
 
     let resultPurchaseElement = '';
     let purchaseAvailable = 0;
@@ -279,6 +246,42 @@ const displayGUIDEBOXSourceData = (data) => {
     let SubscriptionAvailable =0;
 
     let sourceLogo = '';
+
+    // Free web sources (Crackle) Options
+
+    if (data.free_web_sources) {
+        data.free_web_sources.forEach( (item) => {            
+            console.log("item checked is: ",item.source)
+            for (var i=0; i<imageStored.length; i++) {
+                var logo = imageStored[i];
+                if (item.source === logo.source) {
+                    sourceLogo = logo.image
+                    console.log(sourceLogo);
+                };
+            }
+            if (item.link != null && item.source != null ) {
+                resultFreeWebElement += `
+                <div class='grid-cell grid-small-6 grid-medium-4 grid-large-3'>
+                    <div class='platforms'>            
+                    <span><img src="images/${sourceLogo}" alt="${item.source}" class="js-source-thumbnail" /></span>
+                    <a href="${item.link}" target="_blank">Watch Now</a>
+                    </div>
+                </div>`;
+            }
+            freeWebAvailable ++;
+        });
+        if (freeWebAvailable > 0) {
+            formattedTextElement += `    
+            <div class='grid grid-with-gutter'>
+                <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
+                    <div class='grid-content-text'>
+                        <p>The movie is available for free from the following platforms, for streaming:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-with-gutter">${resultFreeWebElement}</div>`
+        }
+    }
 
     // Subscription Options
 
@@ -391,7 +394,7 @@ const displayGUIDEBOXSourceData = (data) => {
         }
     }
     
-    if (!data.purchase_web_sources && !data.subscription_web_sources) { 
+    if (!data.purchase_web_sources && !data.subscription_web_sources && !data.free_web_sources) { 
         formattedTextElement += `
             <div class='grid grid-with-gutter'>
                 <div class='grid-cell grid-small-12 grid-medium-12 grid-large-12'>
