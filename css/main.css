@@ -18,12 +18,12 @@ header {
 }
 .appTitle{
   background-color: white;
-  border-radius: 15px;
+  border-radius: 5px;
   color: #969595;
 
-  font: 300 60px/1.0 'Just Another Hand', Helvetica, sans-serif;
-  text-shadow: 4px 4px 0px rgba(0,0,0,0.1); 
-  margin: 5px 100px;
+  font: 100 20px/1.0 'Just Another Hand', Helvetica, sans-serif;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
+  margin: 5px 30px;
 }
  
 .box{
@@ -264,6 +264,12 @@ header {
   }
   .movie-result-container .js-movie-thumbnail {
     width: 150px;
+  }
+  .appTitle{
+    border-radius: 15px;
+    font: 300 60px/1.0 'Just Another Hand', Helvetica, sans-serif;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.1); 
+    margin: 5px 100px;
   }
 }
 
