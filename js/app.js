@@ -58,6 +58,7 @@ const displayGUIDEBOXTITLESearchData = (data) => {
     if ($( '.movie-result-container' ).is( ":hidden" )) {$('.movie-result-container').toggle();};
     if ($( '.movie-review-container' ).is( ":visible" )) {$('.movie-review-container').toggle();};
     if ($( '.movie-source-container' ).is( ":visible" )) {$('.movie-source-container').toggle();};
+    if ($( '.prospective-description' ).is( ":visible" )) {$('.prospective-description').toggle();};
     if ($( '.description' ).is( ":visible" )) {$('.description').toggle();};
 }
 

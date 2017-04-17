@@ -14,7 +14,7 @@ header {
   right: 0;
   display: block;
   text-align: center;
-  padding: 5px;
+  padding: 35px;
 }
 .appTitle{
   background-color: white;
@@ -23,7 +23,8 @@ header {
 
   font: 100 20px/1.0 'Just Another Hand', Helvetica, sans-serif;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
-  margin: 5px 30px;
+  padding: 15px;
+  margin: 5px 15px;
 }
  
 .box{
@@ -98,6 +99,23 @@ header {
                                   support rgba */
   background: rgba(54, 25, 25, .5);
   stroke-opacity: 0.3;
+}
+
+.prospective-description{
+  border-radius: 4px;
+  background: rgb(153, 153, 255); /* Fall-back for browsers that don't
+                                  support rgba */
+  background: rgba(153, 153, 255, .5);
+  stroke-opacity: 0.3;
+}
+.prospective-description .grid-content-text{
+  font-size: 14px;
+}
+.prospective-description .grid-content-text a{
+  color: white;
+}
+.prospective-description .grid-content-text a:hover{
+  color: purple;
 }
 
 .movie-result-container, .movie-review-container, .movie-source-container {
@@ -194,6 +212,10 @@ header {
     margin-top: 20px;
     padding: 10px;
   }
+  .propsective-description{
+    margin-top: 20px;
+    padding: 10px;
+  }
   .movie-result-container, .movie-review-container, .movie-source-container{
     margin-top: 20px;
     padding: 10px;
@@ -202,8 +224,9 @@ header {
     width: 60%;
   }
   .appTitle{
-    font: 100 20px/1.0 'Just Another Hand', Helvetica, sans-serif;
+    font: 100 40px/1.5 'Just Another Hand', Helvetica, sans-serif;
     text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
+    padding: 10px;
     margin: 5px 30px;
   }
 }
@@ -224,6 +247,12 @@ header {
     margin-left: 50px;
     padding: 20px;
   }
+  .prospective-description{
+    margin-top: 100px;
+    margin-right: 50px;
+    margin-left: 50px;
+    padding: 20px;
+  }
   .movie-result-container, .movie-review-container, .movie-source-container{
     margin-top: 100px;
     margin-right: 50px;
@@ -234,9 +263,10 @@ header {
     width: 120px;
   }
   .appTitle{
-    font: 200 40px/1.0 'Just Another Hand', Helvetica, sans-serif;
+    padding: 15px;
+    font: 200 50px/1.0 'Just Another Hand', Helvetica, sans-serif;
     text-shadow: 3px 3px 0px rgba(0,0,0,0.1); 
-    margin: 5px 75px;
+    margin: 5px 30px;
   }
 }
 @media only screen and (min-width: 960px) { 
@@ -251,10 +281,16 @@ header {
     width: 250px;
   }
   .description{
-    margin-top: 100px;
+    margin-top: 30px;
     margin-right: 100px;
     margin-left: 100px;
-    padding: 50px;
+    padding: 30px;
+  }
+  .prospective-description{
+    margin-top: 10px;
+    margin-right: 100px;
+    margin-left: 100px;
+    padding: 20px;
   }
   .movie-result-container, .movie-review-container, .movie-source-container{
     margin-top: 100px;
@@ -266,10 +302,10 @@ header {
     width: 150px;
   }
   .appTitle{
-    border-radius: 15px;
+    border-radius: 5px;
     font: 300 60px/1.0 'Just Another Hand', Helvetica, sans-serif;
     text-shadow: 4px 4px 0px rgba(0,0,0,0.1); 
-    margin: 5px 100px;
+    margin: 5px 30px;
   }
 }
 
